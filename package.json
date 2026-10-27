@@ -1,0 +1,47 @@
+{
+  "name": "@skylimit/brand",
+  "version": "1.0.0",
+  "description": "The SkyLimit identity — colours, type, geometry, the mark — for every SkyLimit surface.",
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-skylimit-ai/skylimit-brand.git"
+  },
+  "sideEffects": [
+    "*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./brand.css": "./brand.css",
+    "./theme-marketing-dark.css": "./theme-marketing-dark.css",
+    "./theme-product.css": "./theme-product.css",
+    "./tailwind-v3": "./tailwind-v3.cjs",
+    "./tailwind-v4.css": "./tailwind-v4.css",
+    "./react": "./react/index.ts",
+    "./react/mark": "./react/mark.tsx",
+    "./react/tile": "./react/tile.tsx",
+    "./react/skylimit-mark.css": "./react/skylimit-mark.css",
+    "./assets/*": "./assets/*",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "react",
+    "assets",
+    "tokens",
+    "*.css",
+    "tailwind-v3.cjs"
+  ],
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check && node scripts/check.mjs"
+  },
+  "peerDependencies": {
+    "react": ">=18"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  }
+}

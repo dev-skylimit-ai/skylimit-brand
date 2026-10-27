@@ -1,0 +1,48 @@
+{
+  "$comment": "skylimit.ai: dark, mint, cinematic. Emits the --theme-* names the website already uses, so adopting this renamed nothing there. {color.x.y} points at a brand token and compiles to var(--sl-x-y); {color.x.y/0.1} compiles to that hue at 10% alpha.",
+  "file": "theme-marketing-dark.css",
+  "blocks": [
+    {
+      "selector": ":root",
+      "vars": {
+        "--theme-bg": "{color.navy.800}",
+        "--theme-bg-dark": "{color.navy.900}",
+        "--theme-accent": "{color.mint.500}",
+        "--theme-accent-dim": "{color.mint.500/0.1}",
+        "--theme-text-main": "{color.cloud.50}",
+        "--theme-text-muted": "{color.steel.300}",
+        "--theme-border": "rgba(255, 255, 255, 0.15)",
+        "--color-success": "{color.green.400}",
+        "--color-white-dim": "rgba(255, 255, 255, 0.5)",
+        "--color-white-subtle": "rgba(255, 255, 255, 0.1)",
+        "--max-width": "{size.max-width}",
+        "--header-height": "{size.header}",
+        "--glass-border": "1px solid rgba(255, 255, 255, 0.08)",
+        "--glass-shadow": "0 4px 30px rgba(0, 0, 0, 0.1)",
+        "--glass-bg": "linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02))",
+        "--glass-border-hover": "rgba(255, 255, 255, 0.2)",
+        "--text-hero": "{text.hero}",
+        "--text-section": "{text.section}",
+        "--text-card-title": "{text.card-title}",
+        "--text-body": "{text.body}",
+        "--text-body-lg": "{text.body-lg}",
+        "--motion-duration": "{motion.duration}",
+        "--motion-ease": "{motion.ease}"
+      }
+    },
+    {
+      "media": "(max-width: 767px)",
+      "selector": ":root",
+      "vars": {
+        "--header-height": "{size.header-mobile}",
+        "--text-hero": "{text.hero-mobile}",
+        "--text-section": "{text.section-mobile}"
+      }
+    }
+  ],
+  "contrast": [
+    { "fg": "--theme-text-main", "bg": "--theme-bg", "min": 4.5 },
+    { "fg": "--theme-text-muted", "bg": "--theme-bg", "min": 4.5 },
+    { "fg": "--theme-accent", "bg": "--theme-bg", "min": 3 }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$comment": "The brand tier: hues, type, geometry and motion, identical on every SkyLimit surface. Nothing here names a role — what 'background' or 'accent' means is a theme's decision (tokens/themes). Edit a value, run `npm run build`, and every theme that points at it follows.",
+  "color": {
+    "navy": {
+      "950": "#061626",
+      "925": "#071a2e",
+      "900": "#091c30",
+      "850": "#0b2036",
+      "800": "#0e2a47",
+      "700": "#14365c",
+      "600": "#17456f"
+    },
+    "mint": {
+      "300": "#bff6ef",
+      "500": "#64ffda",
+      "600": "#4fcfbe",
+      "700": "#3fd6c0"
+    },
+    "steel": {
+      "100": "#dff1ff",
+      "300": "#a0c4e8"
+    },
+    "cloud": {
+      "50": "#f1f5f9"
+    },
+    "ink": {
+      "950": "#060f1d",
+      "900": "#0b1b33",
+      "850": "#0c1a2e"
+    },
+    "slate": {
+      "200": "#e5eef9",
+      "300": "#9fb2cb",
+      "600": "#51627b"
+    },
+    "paper": {
+      "50": "#f4f7fb",
+      "0": "#ffffff"
+    },
+    "sky": {
+      "300": "#84bfff",
+      "400": "#59a8ff",
+      "500": "#1f7ae0",
+      "600": "#1663bd"
+    },
+    "green": {
+      "400": "#4ade80"
+    }
+  },
+  "font": {
+    "display": "\"Space Grotesk\", system-ui, sans-serif",
+    "mono": "\"Fira Code\", ui-monospace, monospace",
+    "stencil": "\"Black Ops One\", cursive",
+    "ui": "Inter, system-ui, sans-serif"
+  },
+  "size": {
+    "max-width": "1280px",
+    "header": "80px",
+    "header-mobile": "64px"
+  },
+  "text": {
+    "hero": "clamp(2.25rem, 5.5vw, 4rem)",
+    "hero-mobile": "clamp(1.75rem, 8vw, 2.5rem)",
+    "section": "clamp(2rem, 6vw, 4.5rem)",
+    "section-mobile": "clamp(1.5rem, 7vw, 2.5rem)",
+    "card-title": "clamp(1.25rem, 2.5vw, 2rem)",
+    "body": "clamp(1rem, 1.5vw, 1.25rem)",
+    "body-lg": "clamp(1.125rem, 1.75vw, 1.5rem)"
+  },
+  "motion": {
+    "duration": "300ms",
+    "ease": "ease-in-out"
+  }
+}

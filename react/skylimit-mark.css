@@ -1,0 +1,240 @@
+/* ==========================================================================
+   SKYLIMIT MARK — component styles
+
+   Ported verbatim from the brand sheet's COMPONENT_CSS, which is its single
+   source of truth for the motion. Only the defaults for --sl-a / --sl-b were
+   repointed at the site palette (see src/lib/brand.ts); no keyframe, blend
+   mode or timing was altered.
+
+   Scope: .sl-mark. Gradient fills are written per instance with useId, so
+   nothing here references a gradient by name.
+   ========================================================================== */
+.sl-mark {
+  --sl-size: 160px;
+  --sl-a: #64ffda; /* aurora highlight — --theme-accent */
+  --sl-b: #a0c4e8; /* aurora shadow — --theme-text-muted */
+  --sl-speed: 1; /* global rate multiplier */
+  --sl-churn: 6.5s; /* aurora layer 1 period */
+  --sl-scan-dur: 2s;
+  --sl-pulse-dur: 2.6s;
+  --sl-fill-dur: 2.2s;
+  --sl-stroke: 0.9;       /* rim weight, in viewBox units */
+  width: var(--sl-size);
+  aspect-ratio: 67.2 / 21.5;
+  position: relative;
+  display: block;
+  filter: saturate(1.1) brightness(1.1);
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* overflow:hidden matters: the aurora rects extend far past the box and,
+   though clipped from view, would otherwise inflate min-content width and
+   blow out any grid or flex track holding the mark. */
+.sl-mark svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: hidden;
+}
+
+/* --- aurora churn: three counter-rotating radial gradients --------------- */
+.sl-layer {
+  transform-box: fill-box;
+  transform-origin: 50% 50%;
+  mix-blend-mode: difference;
+  animation: sl-rotate calc(var(--sl-churn) / var(--sl-speed)) linear infinite;
+}
+.sl-layer.l2 {
+  animation-duration: calc(10s / var(--sl-speed));
+  animation-direction: reverse;
+  mix-blend-mode: color-dodge;
+  opacity: 0.85;
+}
+.sl-layer.l3 {
+  animation-duration: calc(4.2s / var(--sl-speed));
+  opacity: 0.55;
+}
+@keyframes sl-rotate {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --- breathing highlight ------------------------------------------------- */
+.sl-light {
+  fill: rgba(255, 255, 255, 0.55);
+  filter: blur(2.4px);
+  animation: sl-pulse calc(var(--sl-pulse-dur) / var(--sl-speed)) ease-in-out infinite;
+}
+@keyframes sl-pulse {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 0.1;
+  }
+}
+
+/* --- scan sweep ---------------------------------------------------------- */
+.sl-scan {
+  mix-blend-mode: screen;
+  animation: sl-scan calc(var(--sl-scan-dur) / var(--sl-speed)) cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@keyframes sl-scan {
+  0% {
+    transform: translateX(-30px);
+  }
+  100% {
+    transform: translateX(100px);
+  }
+}
+
+/* --- load fill: colour arrives left to right ----------------------------- */
+.sl-revealRect {
+  transform-box: fill-box;
+  transform-origin: 0% 50%;
+  transform: scaleX(1);
+}
+@keyframes sl-load {
+  0% {
+    transform: scaleX(0);
+  }
+  60% {
+    transform: scaleX(1);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+.sl-leadEdge {
+  fill: var(--sl-a);
+  transform-box: fill-box;
+}
+@keyframes sl-leadmove {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  58% {
+    transform: translateX(64px);
+    opacity: 1;
+  }
+  72% {
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(64px);
+    opacity: 0;
+  }
+}
+
+/* --- rim stroke: always unclipped, unblended ----------------------------- */
+.sl-outline {
+  fill: none;
+  stroke-width: var(--sl-stroke, 0.9);
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.sl-outline[data-draw] {
+  stroke-dasharray: var(--sl-len);
+  stroke-dashoffset: var(--sl-len);
+  animation: sl-draw calc(2.8s / var(--sl-speed)) cubic-bezier(0.32, 0.72, 0, 1) infinite;
+}
+@keyframes sl-draw {
+  0% {
+    stroke-dashoffset: var(--sl-len);
+  }
+  55% {
+    stroke-dashoffset: 0;
+  }
+  90% {
+    stroke-dashoffset: 0;
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0;
+  }
+}
+
+/* --- states -------------------------------------------------------------- */
+.sl-mark[data-state="generating"] .sl-revealRect {
+  animation: sl-load calc(var(--sl-fill-dur) / var(--sl-speed)) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+.sl-mark[data-state="generating"] .sl-leadEdge {
+  animation: sl-leadmove calc(var(--sl-fill-dur) / var(--sl-speed)) cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
+/* freeze exactly where it stands — no reset, no snap */
+.sl-mark[data-state="complete"] .sl-layer,
+.sl-mark[data-state="complete"] .sl-light,
+.sl-mark[data-state="complete"] .sl-scan,
+.sl-mark[data-state="complete"] .sl-revealRect,
+.sl-mark[data-state="complete"] .sl-leadEdge,
+.sl-mark[data-state="complete"] .sl-outline {
+  animation-play-state: paused;
+}
+
+/* resting frame — fully filled, nothing moving */
+.sl-mark[data-state="still"] .sl-layer,
+.sl-mark[data-state="still"] .sl-light,
+.sl-mark[data-state="still"] .sl-scan,
+.sl-mark[data-state="still"] .sl-revealRect,
+.sl-mark[data-state="still"] .sl-leadEdge,
+.sl-mark[data-state="still"] .sl-outline {
+  animation: none;
+}
+.sl-mark[data-state="still"] .sl-light {
+  opacity: 0.5;
+}
+.sl-mark[data-state="still"] .sl-scan {
+  opacity: 0;
+}
+.sl-mark[data-state="still"] .sl-leadEdge {
+  opacity: 0;
+}
+.sl-mark[data-state="still"] .sl-outline[data-draw] {
+  stroke-dashoffset: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /*
+   * These carry [data-state] to outrank the `generating` rules above.
+   *
+   * The brand sheet's own CSS sets the reveal animations with
+   * `.sl-mark[data-state="generating"] .sl-revealRect` (specificity 0,3,0) but
+   * cancels them here with `.sl-mark .sl-revealRect` (0,2,0), so the reveal
+   * and its lead edge kept animating under prefers-reduced-motion. Matching
+   * the attribute selector fixes it without !important.
+   */
+  .sl-mark[data-state] .sl-layer,
+  .sl-mark[data-state] .sl-light,
+  .sl-mark[data-state] .sl-scan,
+  .sl-mark[data-state] .sl-leadEdge,
+  .sl-mark[data-state] .sl-outline {
+    animation: none;
+  }
+  .sl-mark[data-state] .sl-revealRect {
+    animation: none;
+    transform: scaleX(1);
+  }
+  .sl-mark .sl-light {
+    opacity: 0.5;
+  }
+  .sl-mark .sl-scan {
+    opacity: 0;
+  }
+  .sl-mark .sl-leadEdge {
+    opacity: 0;
+  }
+  .sl-mark .sl-outline[data-draw] {
+    stroke-dashoffset: 0;
+  }
+}
