@@ -1,7 +1,7 @@
 /**
- * SkyLimit mark — geometry and palettes.
+ * Skylimit AI mark — geometry and palettes.
  *
- * Ported from the brand sheet ("SkyLimit Mark & Motion"). The path and the
+ * Ported from the brand sheet ("Skylimit Mark & Motion"). The path and the
  * aurora gradient stops are fixed by the brand guide and must not be edited;
  * a palette recolours the mark through `--sl-a` / `--sl-b` plus its own body
  * and rim gradients, exactly as the sheet's own two palettes do.
@@ -54,6 +54,23 @@ export const MARK_PALETTE: MarkPalette = {
 
 /** Ground the mark is presented on. The churn needs a dark backdrop. */
 export const MARK_GROUND: string = color.navy["925"];
+
+/**
+ * Silver: the brand sheet's product-UI palette, and the one Skylimit
+ * Orchestra ships. Apps use this; the website keeps its mint.
+ */
+export const SILVER_PALETTE: MarkPalette = {
+  a: color.silver["100"],
+  b: color.silver["300"],
+  g1: color.silver["600"],
+  g2: color.silver["500"],
+  g3: color.silver["700"],
+  e1: "rgba(255, 255, 255, 0.4)",
+  e2: "rgba(255, 255, 255, 0.9)",
+};
+
+/** The app icon's tile: near-black, so the silver mark reads as lit metal. */
+export const APP_ICON_GROUND: string = color.night["950"];
 
 /**
  * Nine alternating stops make the churn read as banded metal rather than a

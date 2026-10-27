@@ -8,6 +8,7 @@
   --color-sl-navy-900: var(--sl-navy-900);
   --color-sl-navy-925: var(--sl-navy-925);
   --color-sl-navy-950: var(--sl-navy-950);
+  --color-sl-night-950: var(--sl-night-950);
   --color-sl-mint-300: var(--sl-mint-300);
   --color-sl-mint-500: var(--sl-mint-500);
   --color-sl-mint-600: var(--sl-mint-600);
@@ -28,4 +29,9 @@
   --color-sl-sky-500: var(--sl-sky-500);
   --color-sl-sky-600: var(--sl-sky-600);
   --color-sl-green-400: var(--sl-green-400);
+  --color-sl-silver-100: var(--sl-silver-100);
+  --color-sl-silver-300: var(--sl-silver-300);
+  --color-sl-silver-500: var(--sl-silver-500);
+  --color-sl-silver-600: var(--sl-silver-600);
+  --color-sl-silver-700: var(--sl-silver-700);
 }

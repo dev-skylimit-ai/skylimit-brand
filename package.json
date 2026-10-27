@@ -1,7 +1,7 @@
 {
   "name": "@skylimit/brand",
-  "version": "1.0.0",
-  "description": "The SkyLimit identity — colours, type, geometry, the mark — for every SkyLimit surface.",
+  "version": "1.1.0",
+  "description": "The Skylimit AI identity — colours, type, geometry, the mark, the app icon — for every Skylimit AI surface.",
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
     "./react/tile": "./react/tile.tsx",
     "./react/skylimit-mark.css": "./react/skylimit-mark.css",
     "./assets/*": "./assets/*",
-    "./package.json": "./package.json"
+    "./package.json": "./package.json",
+    "./react/app-icon": "./react/app-icon.tsx",
+    "./app-icon": "./src/app-icon.ts"
   },
   "files": [
     "src",

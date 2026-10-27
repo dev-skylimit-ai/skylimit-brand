@@ -15,7 +15,7 @@ type Props = {
 };
 
 /**
- * The SkyLimit mark for a square slot: app shells, favicons, avatars.
+ * The Skylimit AI mark for a square slot: app shells, favicons, avatars.
  *
  * The mark is a 3.1:1 ridge, so fitting it whole into a square leaves a thin
  * band and empty sky. This is a crop instead — the 26 units around the summit,

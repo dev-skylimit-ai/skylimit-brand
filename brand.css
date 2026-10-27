@@ -7,6 +7,7 @@
   --sl-navy-900: #091c30;
   --sl-navy-925: #071a2e;
   --sl-navy-950: #061626;
+  --sl-night-950: #05070c;
   --sl-mint-300: #bff6ef;
   --sl-mint-500: #64ffda;
   --sl-mint-600: #4fcfbe;
@@ -27,6 +28,11 @@
   --sl-sky-500: #1f7ae0;
   --sl-sky-600: #1663bd;
   --sl-green-400: #4ade80;
+  --sl-silver-100: #ffffff;
+  --sl-silver-300: #8a8a96;
+  --sl-silver-500: #6a6a74;
+  --sl-silver-600: #4a4a52;
+  --sl-silver-700: #3b3b42;
   --sl-font-display: "Space Grotesk", system-ui, sans-serif;
   --sl-font-mono: "Fira Code", ui-monospace, monospace;
   --sl-font-stencil: "Black Ops One", cursive;

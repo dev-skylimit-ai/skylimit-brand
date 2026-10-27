@@ -38,7 +38,7 @@ type Props = {
 };
 
 /**
- * The SkyLimit mark.
+ * The Skylimit AI mark.
  *
  * The brand sheet ships a DOM factory whose whole job is minting unique
  * gradient ids — two raw copies of the SVG on one page collide and the second
@@ -61,7 +61,7 @@ export function SkyLimitMark({
   palette = MARK_PALETTE,
   variant = "default",
   className = "",
-  label = "SkyLimit AI",
+  label = "Skylimit AI",
 }: Props) {
   const glass = variant === "glass";
   const uid = useId().replace(/[^a-zA-Z0-9]/g, "");

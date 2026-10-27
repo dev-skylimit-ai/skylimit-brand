@@ -158,12 +158,72 @@ function tokensTs() {
   )} as const;\n\nexport const themes = ${JSON.stringify(themesOut, null, 2)} as const;\n`;
 }
 
+/**
+ * The app icon: the whole silver ridge on a near-black tile, as Skylimit
+ * Orchestra ships it. One picture for every favicon, home-screen icon and
+ * store listing. `maskable` is the full-bleed square Android crops to a
+ * circle or squircle, with the ridge inside its 80% safe zone.
+ */
+function appIconSvg({ maskable }) {
+  const markPath = /MARK_PATH =\s*"([^"]+)"/.exec(readFileSync(join(root, "src/mark.ts"), "utf8"))[1];
+  const c = brand.color;
+  const width = maskable ? 360 : 420;
+  const s = width / 67.2;
+  const tx = (512 - width) / 2;
+  const ty = (512 - 21.5 * s) / 2;
+  const stops = [0, 12, 24, 36, 48, 60, 72, 84, 100]
+    .map((o, i) => `<stop offset="${o}%" stop-color="${i % 2 ? c.silver["300"] : c.silver["100"]}"/>`)
+    .join("");
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+<defs>
+<linearGradient id="base" x1="0" y1="1" x2="0" y2="0"><stop offset="0%" stop-color="${c.silver["600"]}"/><stop offset="55%" stop-color="${c.silver["500"]}"/><stop offset="100%" stop-color="${c.silver["700"]}"/></linearGradient>
+<linearGradient id="edge" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#ffffff" stop-opacity="0.4"/><stop offset="100%" stop-color="#ffffff" stop-opacity="0.9"/></linearGradient>
+<radialGradient id="aurora" cx="60%" cy="120%" r="85%">${stops}</radialGradient>
+<clipPath id="mark"><path d="${markPath}"/></clipPath>
+</defs>
+<rect width="512" height="512"${maskable ? "" : ` rx="112"`} fill="${c.night["950"]}"/>
+<g transform="translate(${tx.toFixed(2)} ${ty.toFixed(2)}) scale(${s.toFixed(4)})">
+<g clip-path="url(#mark)"><path d="${markPath}" fill="url(#base)"/><rect x="-66.4" y="-89.25" width="200" height="200" fill="url(#aurora)" opacity="0.6"/></g>
+<path d="${markPath}" fill="none" stroke="url(#edge)" stroke-width="0.9" stroke-linejoin="round" stroke-linecap="round"/>
+</g>
+</svg>
+`;
+}
+
+function appIconTs(icon, maskable) {
+  return `// ${HEADER}
+// The app icon as SVG source, for routes that rasterise it (next/og) and for
+// favicons. The same files ship as assets/app-icon.svg and app-icon-maskable.svg.
+
+/** Rounded tile — favicons, iOS, desktop installs. */
+export const APP_ICON_SVG = ${JSON.stringify(icon)};
+
+/** Full-bleed square for Android's adaptive mask ("purpose": "maskable"). */
+export const APP_ICON_MASKABLE_SVG = ${JSON.stringify(maskable)};
+
+/** Base64 data URI, UTF-8 safe, for <img src> in next/og and the like. */
+export function svgDataUri(svg: string): string {
+  const b64 =
+    typeof Buffer !== "undefined"
+      ? Buffer.from(svg, "utf8").toString("base64")
+      : btoa(String.fromCharCode(...new TextEncoder().encode(svg)));
+  return \`data:image/svg+xml;base64,\${b64}\`;
+}
+`;
+}
+
+const appIcon = appIconSvg({ maskable: false });
+const appIconMaskable = appIconSvg({ maskable: true });
+
 export const outputs = {
   "brand.css": brandCss(),
   ...Object.fromEntries(themes.map((t) => [t.file, themeCss(t)])),
   "tailwind-v3.cjs": tailwindV3(),
   "tailwind-v4.css": tailwindV4(),
   "src/tokens.ts": tokensTs(),
+  "assets/app-icon.svg": appIcon,
+  "assets/app-icon-maskable.svg": appIconMaskable,
+  "src/app-icon.ts": appIconTs(appIcon, appIconMaskable),
 };
 
 if (process.argv[1] && fileURLToPath(import.meta.url) === process.argv[1]) {

@@ -1,7 +1,7 @@
 # @skylimit/brand
 
-The SkyLimit identity — colours, type, geometry, motion and the mark — in one
-place, for every SkyLimit surface: skylimit.ai, core.skylimit.ai, and whatever
+The Skylimit AI identity — colours, type, geometry, motion and the mark — in one
+place, for every Skylimit AI surface: skylimit.ai, core.skylimit.ai, and whatever
 comes next.
 
 ## Three tiers
@@ -79,12 +79,22 @@ presets: [require("@skylimit/brand/tailwind-v3")]
 @import "@skylimit/brand/theme-product.css";
 ```
 
-**The mark:**
+**The mark and the app icon:**
 
 ```tsx
-import { SkyLimitTile } from "@skylimit/brand/react/tile";   // square, for app shells
-import { SkyLimitMark } from "@skylimit/brand/react/mark";   // the full ridge, animated
+import { SkyLimitAppIcon } from "@skylimit/brand/react/app-icon"; // the app icon, animated: headers, login
+import { SkyLimitMark } from "@skylimit/brand/react/mark";        // the full ridge, animated
+import { APP_ICON_SVG, APP_ICON_MASKABLE_SVG } from "@skylimit/brand/app-icon"; // favicon, PWA PNGs
 ```
+
+**One app icon everywhere.** Every Skylimit AI app installs with the same icon
+Skylimit Orchestra ships: the whole silver ridge on a near-black tile
+(`assets/app-icon.svg`, plus `app-icon-maskable.svg` for Android). Apps serve
+it as their favicon and rasterise it for their manifest, so changing it here
+changes the home-screen icon of every app on its next sync. Inside the app,
+`SkyLimitAppIcon` is the same tile with the aurora moving — the icon the user
+tapped, alive. Product UIs use the mark's `SILVER_PALETTE`; the website keeps
+its mint `MARK_PALETTE`.
 
 **Values in code:** `import { brand, themes, MARK_PATH } from "@skylimit/brand"`.
 
