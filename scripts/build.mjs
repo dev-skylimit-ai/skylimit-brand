@@ -206,7 +206,7 @@ export function svgDataUri(svg: string): string {
   const b64 =
     typeof Buffer !== "undefined"
       ? Buffer.from(svg, "utf8").toString("base64")
-      : btoa(String.fromCharCode(...new TextEncoder().encode(svg)));
+      : btoa(Array.from(new TextEncoder().encode(svg), (b) => String.fromCharCode(b)).join(""));
   return \`data:image/svg+xml;base64,\${b64}\`;
 }
 `;
